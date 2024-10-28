@@ -1,4 +1,5 @@
-version: '3'
+version: '3.8'
+
 services:
   frontend:
     build: ./front
@@ -14,6 +15,8 @@ services:
     build: ./catalog
     ports:
       - "3002:3002"
+    volumes:
+      - ./catalog:/catalog  # Mount the catalog directory
     networks:
       - app-network
 
@@ -21,6 +24,8 @@ services:
     build: ./order
     ports:
       - "3003:3003"
+    volumes:
+      - ./catalog:/catalog  # Mount the same catalog directory for access
     networks:
       - app-network
 
