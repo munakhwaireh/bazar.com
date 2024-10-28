@@ -67,5 +67,39 @@ const updateCatalog = async (itemId) => {
   }
 };
 
+// Route to update book price by item ID
+app.put('/update/:id', async (req, res) => {
+  const itemId = parseInt(req.params.id);
+  const { price } = req.body; // New price from the request body
+
+  try {
+    const data = await fs.readFile('catalog.csv', 'utf8');
+    const rows = data.split('\n');
+    const header = rows[0];
+    const books = rows.slice(1).map(row => row.split(','));
+
+    // Update the book price if found
+    const updatedBooks = books.map(book => {
+      if (parseInt(book[0]) === itemId) {
+        book[3] = parseFloat(price).toFixed(2);  // Update price column (3rd index)
+      }
+      return book;
+    });
+
+    const updatedData = [header, ...updatedBooks.map(row => row.join(','))].join('\n');
+    await fs.writeFile('catalog.csv', updatedData);
+    console.log("Catalog CSV file updated with new price.");
+
+    // Reload the catalog to ensure data is updated
+    reloadCatalog(); // Call your function to reload the catalog
+
+    res.json({ message: "Price updated successfully" });
+  } catch (err) {
+    console.error("Error updating catalog:", err);
+    res.status(500).json({ message: "Error updating book price", error: err.message });
+  }
+});
+
+
 // Start the server
 app.listen(PORT, () => console.log(`Catalog service running on port ${PORT}`));

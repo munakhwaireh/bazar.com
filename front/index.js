@@ -39,4 +39,17 @@ app.post('/purchase/:id', async (req, res) => {
   }
 });
 
+// Route to update book price by item ID
+app.put('/update/:id', async (req, res) => {
+  const itemId = req.params.id;
+  const { price } = req.body; // Assuming the new price is sent in the request body
+  try {
+    // Forward the update request to the catalog service
+    const response = await axios.put(`http://catalog:3002/update/${itemId}`, { price });
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ message: "Error updating book price", error: error.message });
+  }
+});
+
 app.listen(PORT, () => console.log(`Frontend service running on port ${PORT}`));
