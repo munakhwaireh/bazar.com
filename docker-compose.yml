@@ -1,0 +1,29 @@
+version: '3'
+services:
+  frontend:
+    build: ./front
+    ports:
+      - "3001:3001"
+    depends_on:
+      - catalog
+      - order
+    networks:
+      - app-network
+
+  catalog:
+    build: ./catalog
+    ports:
+      - "3002:3002"
+    networks:
+      - app-network
+
+  order:
+    build: ./order
+    ports:
+      - "3003:3003"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
