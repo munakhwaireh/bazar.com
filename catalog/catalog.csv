@@ -1,6 +1,10 @@
 id,title,topic,price,quantity
-1,How to get a good grade in DOS,distributed systems,40,0
-2,RPCs for Noobs,distributed systems,30,5
-3,Xen and Art of Undergraduate School,undergraduate,25,2
-4,Cooking for the Impatient,undergraduate,20,7
+1,How to get a good grade in DOS,distributed systems,711.00,9
+2,RPCs for Noobs,distributed systems,55.00,68
+3,Xen and Art of Undergraduate School,undergraduate,102.00,11
+4,Cooking for the Impatient,undergraduate,711.00,2
+5,How to finish Project 3 on time,math,711.00,5
+6,Why theory classes are so hard,math,77,8
+7,Spring in the Pioneer Valley,science,23,7
+8,myBook,science,641,19
 
