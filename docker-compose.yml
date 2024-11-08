@@ -8,6 +8,8 @@ services:
     depends_on:
       - catalog
       - order
+      - catalogcash
+      - ordercash
     networks:
       - app-network
 
@@ -26,6 +28,32 @@ services:
       - "3003:3003"
     volumes:
       - ./catalog:/catalog  # Mount the same catalog directory for access
+      - ./order:/order
+    networks:
+      - app-network
+
+  catalogcash:
+    build: ./catalogcash
+    ports:
+      - "3004:3004"
+    depends_on:
+      - catalog
+      - order  
+    volumes:
+      - ./catalogcash:/catalogcash  # Mount the catalog directory
+    networks:
+      - app-network
+
+  ordercash:
+    build: ./ordercash
+    ports:
+      - "3005:3005"
+    depends_on:
+      - catalog
+      - order  
+    volumes:
+      - ./catalogcash:/catalogcash  # Mount the same catalog directory for access
+      - ./ordercash:/ordercash
     networks:
       - app-network
 
