@@ -1,0 +1,18 @@
+# Use Node.js as the base image
+FROM node:14
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy package.json and install dependencies
+COPY package*.json ./
+RUN npm install
+
+# Copy the rest of the application code
+COPY . .
+
+# Expose the port the service will run on (e.g., 3002 for catalog)
+EXPOSE 3002 
+
+# Start the service
+CMD ["npm", "start"]
